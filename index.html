@@ -16,7 +16,7 @@
         body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         .btn-opt { transition: all 0.2s; border: 2px solid #f1f5f9; }
         .btn-opt.active { border-color: #2563eb; background-color: #eff6ff; color: #2563eb; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.1); }
-        .active-tab { background: white; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); color: #2563eb; }
+        .active-tab { background: white !important; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); color: #2563eb !important; }
         .btn-emerald.active { border-color: #10b981; background-color: #ecfdf5; color: #047857; }
         .btn-rose.active { border-color: #f43f5e; background-color: #fff1f2; color: #e11d48; }
         .btn-amber.active { border-color: #f59e0b; background-color: #fffbeb; color: #b45309; }
@@ -188,11 +188,7 @@
     </div>
 
     <script>
-        // --- FIREBASE SETUP ---
-        const firebaseConfig = JSON.parse(__firebase_config);
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        const auth = firebase.auth();
+        let db = null; let auth = null;
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'pool-smart-master-2026';
         const uid = localStorage.getItem('pool_uid') || 'u' + Math.random().toString(36).substr(2, 7);
         localStorage.setItem('pool_uid', uid);
@@ -258,21 +254,29 @@
                 setTimeout(() => state.logoClicks = 0, 3000);
             };
 
-            // Firebase Auth
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                await auth.signInWithCustomToken(__initial_auth_token);
-            } else {
-                await auth.signInAnonymously();
-            }
+            // SAFE FIREBASE START
+            if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+                try {
+                    const firebaseConfig = JSON.parse(__firebase_config);
+                    firebase.initializeApp(firebaseConfig);
+                    db = firebase.firestore();
+                    auth = firebase.auth();
+                    
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await auth.signInWithCustomToken(__initial_auth_token);
+                    } else {
+                        await auth.signInAnonymously();
+                    }
 
-            // Sync Prices from Cloud
-            db.collection('artifacts').doc(appId).collection('public').doc('settings').onSnapshot(doc => {
-                if (doc.exists) {
-                    prices = doc.data().data || prices;
-                    calc();
-                    if(state.isAdmin) renderAdmin();
-                }
-            });
+                    db.collection('artifacts').doc(appId).collection('public').doc('settings').onSnapshot(doc => {
+                        if (doc.exists) {
+                            prices = doc.data().data || prices;
+                            calc();
+                            if(state.isAdmin) renderAdmin();
+                        }
+                    });
+                } catch(e) { console.error("Firebase error", e); }
+            }
 
             calc();
             renderHistory();
@@ -367,7 +371,8 @@
             document.getElementById('history-view').style.display = t === 'history' ? 'block' : 'none';
             document.getElementById('admin-view').style.display = t === 'settings' ? 'block' : 'none';
             ['calc', 'history', 'settings'].forEach(tab => {
-                document.getElementById('tab-'+tab).className = `px-4 py-2 text-[9px] rounded-lg transition-all font-black uppercase ${t === tab ? 'active-tab' : 'text-slate-400'}`;
+                const btn = document.getElementById('tab-'+tab);
+                btn.className = `px-4 py-2 text-[9px] rounded-lg transition-all font-black uppercase ${t === tab ? 'active-tab' : 'text-slate-400'}`;
             });
             if(t === 'settings' && state.isAdmin) renderAdmin();
             if(t === 'history') renderHistory();
@@ -377,25 +382,21 @@
             const sum = document.getElementById('total-val').innerText;
             const l = document.getElementById('L').value, w = document.getElementById('W').value, d = document.getElementById('D').value;
             const data = { 
-                uid: uid,
-                date: new Date().toLocaleString(), 
-                sum: sum, 
-                details: `${l}x${w}x${d}м, ${state.pool}`,
-                ts: Date.now()
+                uid: uid, date: new Date().toLocaleString(), 
+                sum: sum, details: `${l}x${w}x${d}м, ${state.pool}`, ts: Date.now()
             };
             
-            // Local
             let local = JSON.parse(localStorage.getItem('pool_history') || '[]');
             local.unshift(data);
             localStorage.setItem('pool_history', JSON.stringify(local));
             
-            // Cloud
-            try {
-                await db.collection('artifacts').doc(appId).collection('public').doc('data').collection('orders').add(data);
-                alert('Збережено в хмару та архів!');
-            } catch(e) {
-                alert('Збережено лише локально (немає мережі)');
+            if (db) {
+                try {
+                    await db.collection('artifacts').doc(appId).collection('public').doc('data').collection('orders').add(data);
+                    alert('Збережено в хмару!');
+                } catch(e) {}
             }
+            alert('Збережено в архів!');
             renderHistory();
         }
 
@@ -415,26 +416,27 @@
                 const local = JSON.parse(localStorage.getItem('pool_history') || '[]');
                 if(!local.length) { list.innerHTML = '<div class="text-center text-slate-300 py-10">Архів порожній</div>'; return; }
                 list.innerHTML = local.map(item => `
-                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-left">
                         <div class="flex justify-between font-bold text-xs"><span class="text-blue-600">${item.sum}</span><span class="text-slate-400">${item.date}</span></div>
                         <div class="text-[10px] text-slate-500 mt-1">${item.details}</div>
                     </div>
                 `).join('');
-            } else {
+            } else if (db) {
                 db.collection('artifacts').doc(appId).collection('public').doc('data').collection('orders').onSnapshot(snap => {
                     const orders = [];
                     snap.forEach(doc => orders.push(doc.data()));
                     orders.sort((a,b) => b.ts - a.ts);
-                    if(!orders.length) { list.innerHTML = '<div class="text-center text-slate-300 py-10">У хмарі порожньо</div>'; return; }
+                    if(!orders.length) { list.innerHTML = '<div class="text-center text-slate-300 py-10">Хмара порожня</div>'; return; }
                     list.innerHTML = orders.map(item => `
-                        <div class="bg-white p-4 rounded-xl border border-blue-100 shadow-sm">
+                        <div class="bg-white p-4 rounded-xl border border-blue-100 shadow-sm text-left">
                             <div class="flex justify-between font-bold text-xs"><span class="text-blue-600">${item.sum}</span><span class="text-slate-400">ID: ${item.uid.slice(-4)} | ${item.date}</span></div>
                             <div class="text-[10px] text-slate-500 mt-1">${item.details}</div>
                         </div>
                     `).join('');
-                });
-            }
+                }, err => { list.innerHTML = '<div class="text-center py-10">Помилка доступу до хмари</div>'; });
+            } else { list.innerHTML = '<div class="text-center py-10">Хмарна база недоступна</div>'; }
         }
+
         function clearHistory() { localStorage.removeItem('pool_history'); renderHistory(); }
 
         function checkPin() {
@@ -449,9 +451,10 @@
         }
 
         async function savePricesToCloud() {
+            if (!db) { alert("База недоступна"); return; }
             try {
                 await db.collection('artifacts').doc(appId).collection('public').doc('settings').set({ data: prices });
-                alert('Ціни оновлено для всіх клієнтів!');
+                alert('Ціни оновлено!');
             } catch(e) { alert('Помилка оновлення'); }
         }
         
@@ -459,7 +462,7 @@
             const container = document.getElementById('admin-content');
             container.innerHTML = '';
             const createGroup = (title, obj, isTiered = false) => {
-                let html = `<div class="admin-group"><div class="admin-group-title">${title}</div>`;
+                let html = `<div class="admin-group text-left"><div class="admin-group-title">${title}</div>`;
                 for(let k in obj) {
                     if (isTiered) {
                          html += `<div class="admin-sub-title">${obj[k].name || k}</div>`;
@@ -488,4 +491,5 @@
     </script>
 </body>
 </html>
+
 
