@@ -16,7 +16,7 @@
         body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
         .btn-opt { transition: all 0.2s; border: 2px solid #f1f5f9; }
         .btn-opt.active { border-color: #2563eb; background-color: #eff6ff; color: #2563eb; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.1); }
-        .active-tab { background: white !important; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); color: #2563eb !important; }
+        .active-tab { background-color: white !important; color: #2563eb !important; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
         .btn-emerald.active { border-color: #10b981; background-color: #ecfdf5; color: #047857; }
         .btn-rose.active { border-color: #f43f5e; background-color: #fff1f2; color: #e11d48; }
         .btn-amber.active { border-color: #f59e0b; background-color: #fffbeb; color: #b45309; }
@@ -25,13 +25,14 @@
         .check-box-blue.active { border-color: #2563eb; background-color: #eff6ff; color: #2563eb; }
         .admin-inp { width: 80px; padding: 6px; border-radius: 6px; background: #fff; border: 1px solid #cbd5e1; font-weight: bold; font-size: 11px; text-align: right; color: #0f172a; }
         .admin-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px dashed #e2e8f0; }
-        .admin-row:last-child { border-bottom: none; }
         .admin-label { font-size: 9px; color: #64748b; font-weight: 600; text-transform: uppercase; flex: 1; letter-spacing: 0.5px; }
         .admin-group { margin-bottom: 25px; background: #f8fafc; padding: 15px; border-radius: 16px; border: 1px solid #e2e8f0; }
         .admin-group-title { font-size: 14px; color: #2563eb; font-weight: 900; margin-bottom: 12px; text-transform: uppercase; border-bottom: 2px solid #bfdbfe; padding-bottom: 8px; letter-spacing: 1px; }
         .admin-sub-title { font-size: 10px; font-weight: 800; color: #475569; margin-top: 10px; margin-bottom: 4px; border-left: 3px solid #cbd5e1; padding-left: 6px; }
         input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         .hidden-section { display: none !important; }
+        footer { transition: transform 0.2s ease-in-out; }
+        .footer-hidden { transform: translateY(120%); }
     </style>
 </head>
 <body class="bg-[#f8fafc] text-slate-800 uppercase font-black overflow-x-hidden">
@@ -54,15 +55,15 @@
     </header>
 
     <main class="p-4 space-y-6 pb-52 max-w-xl mx-auto" id="main-view">
-        <section class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 space-y-6 font-black uppercase">
+        <section class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 space-y-6 font-black uppercase text-left">
             <div class="flex justify-between items-center">
                 <div class="text-blue-600 text-xs flex items-center gap-2"><i data-lucide="maximize-2" class="w-4 h-4"></i> Габарити</div>
                 <div class="text-[10px] bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full border border-emerald-100" id="tier-display">SMALL</div>
             </div>
             <div class="grid grid-cols-3 gap-3">
-                <div class="text-center"><span class="text-[8px] text-slate-400 block mb-1">Довжина</span><input type="number" id="L" value="0" step="0.1" oninput="calc()" class="w-full bg-slate-50 rounded-2xl py-4 text-center text-lg shadow-inner outline-none focus:ring-2 focus:ring-blue-500 font-black"></div>
-                <div class="text-center"><span class="text-[8px] text-slate-400 block mb-1">Ширина</span><input type="number" id="W" value="0" step="0.1" oninput="calc()" class="w-full bg-slate-50 rounded-2xl py-4 text-center text-lg shadow-inner outline-none focus:ring-2 focus:ring-blue-500 font-black"></div>
-                <div class="text-center"><span class="text-[8px] text-slate-400 block mb-1">Глибина</span><input type="number" id="D" value="0" step="0.1" oninput="calc()" class="w-full bg-slate-50 rounded-2xl py-4 text-center text-lg shadow-inner outline-none focus:ring-2 focus:ring-blue-500 font-black"></div>
+                <div class="text-center"><span class="text-[8px] text-slate-400 block mb-1">Довжина</span><input type="number" id="L" value="0" step="0.1" oninput="calc()" class="w-full bg-slate-50 rounded-2xl py-4 text-center text-lg shadow-inner outline-none focus:ring-2 focus:ring-blue-500 font-black text-slate-900"></div>
+                <div class="text-center"><span class="text-[8px] text-slate-400 block mb-1">Ширина</span><input type="number" id="W" value="0" step="0.1" oninput="calc()" class="w-full bg-slate-50 rounded-2xl py-4 text-center text-lg shadow-inner outline-none focus:ring-2 focus:ring-blue-500 font-black text-slate-900"></div>
+                <div class="text-center"><span class="text-[8px] text-slate-400 block mb-1">Глибина</span><input type="number" id="D" value="0" step="0.1" oninput="calc()" class="w-full bg-slate-50 rounded-2xl py-4 text-center text-lg shadow-inner outline-none focus:ring-2 focus:ring-blue-500 font-black text-slate-900"></div>
             </div>
             <div class="flex justify-between mt-4 pt-4 border-t border-slate-100">
                  <div class="text-center w-1/2 border-r border-slate-100">
@@ -75,12 +76,12 @@
                  </div>
             </div>
             <div onclick="toggle('steps')" id="box-steps" class="check-box-blue flex items-center justify-between p-4 rounded-2xl bg-slate-50 text-slate-400 cursor-pointer border-2 border-transparent">
-                <div class="flex items-center gap-3"><i data-lucide="layout" class="w-5 h-5"></i> <span class="text-xs">Вбудовані сходи</span></div>
+                <div class="flex items-center gap-3"><i data-lucide="layout" class="w-5 h-5"></i> <span class="text-xs font-black">Вбудовані сходи</span></div>
                 <div id="icon-steps" class="w-6 h-6 rounded-lg border-2 border-slate-200 flex items-center justify-center"></div>
             </div>
         </section>
 
-        <section class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 font-black uppercase">
+        <section class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 font-black uppercase text-left">
             <div class="text-blue-600 text-xs flex items-center gap-2 mb-4"><i data-lucide="layers" class="w-4 h-4"></i> Тип чаші</div>
             <div class="grid grid-cols-1 gap-2">
                 <button onclick="setPool('concrete')" id="p-concrete" class="btn-opt p-5 rounded-xl bg-slate-50 text-slate-400 text-sm flex justify-center items-center active">Бетонна чаша</button>
@@ -89,7 +90,7 @@
             </div>
         </section>
 
-        <section id="section-finish" class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 font-black uppercase">
+        <section id="section-finish" class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 font-black uppercase text-left">
             <div class="text-blue-600 text-xs flex items-center gap-2 mb-4"><i data-lucide="palette" class="w-4 h-4"></i> Оздоблення</div>
             <div class="grid grid-cols-3 gap-2">
                 <button onclick="setFinish('mosaic')" id="f-mosaic" class="btn-opt py-5 px-1 rounded-xl bg-slate-50 text-slate-400 text-[10px] active">Мозаїка</button>
@@ -98,78 +99,74 @@
             </div>
         </section>
 
-        <section class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 space-y-4 font-black uppercase">
-            <div class="text-emerald-600 text-xs flex items-center gap-2 tracking-widest"><i data-lucide="settings" class="w-4 h-4"></i> Технічне забезпечення</div>
+        <section class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 space-y-4 font-black uppercase text-left text-slate-900">
+            <div class="text-emerald-600 text-xs flex items-center gap-2 tracking-widest font-black"><i data-lucide="settings" class="w-4 h-4"></i> Технічне забезпечення</div>
             <div onclick="toggle('filtration')" id="box-filtration" class="check-box flex items-center justify-between p-4 rounded-2xl bg-slate-50 text-slate-400 cursor-pointer active">
-                <div class="flex items-center gap-3"><i data-lucide="droplets" class="w-5 h-5"></i> <span class="text-sm font-black">Фільтрація води</span></div>
+                <div class="flex items-center gap-3"><i data-lucide="droplets" class="w-5 h-5"></i> <span class="text-sm font-black uppercase leading-none">Фільтрація води</span></div>
                 <div id="icon-filtration" class="w-6 h-6 rounded-lg bg-emerald-600 flex items-center justify-center text-white"><i data-lucide="check" class="w-4 h-4"></i></div>
             </div>
             <div class="pt-4 border-t border-slate-50 space-y-3">
-                <p class="text-[10px] text-slate-400">Дезінфекція</p>
+                <p class="text-[10px] text-slate-400 font-black uppercase leading-none">Дезінфекція</p>
                 <div class="grid grid-cols-2 gap-2">
-                    <button onclick="setDis('auto')" id="d-auto" class="btn-opt btn-emerald p-4 rounded-xl bg-slate-50 text-slate-400 text-[9px] active">АВТО-СТАНЦІЯ</button>
-                    <button onclick="setDis('manual')" id="d-manual" class="btn-opt btn-emerald p-4 rounded-xl bg-slate-50 text-slate-400 text-[9px]">РУЧНА</button>
+                    <button onclick="setDis('auto')" id="d-auto" class="btn-opt btn-emerald p-4 rounded-xl bg-slate-50 text-slate-400 text-[9px] active font-black uppercase leading-none">АВТО-СТАНЦІЯ</button>
+                    <button onclick="setDis('manual')" id="d-manual" class="btn-opt btn-emerald p-4 rounded-xl bg-slate-50 text-slate-400 text-[9px] font-black uppercase leading-none">РУЧНА</button>
                 </div>
             </div>
             <div class="pt-4 border-t border-slate-50 space-y-3">
-                <p class="text-[10px] text-slate-400">Підігрів води</p>
+                <p class="text-[10px] text-slate-400 font-black uppercase leading-none">Підігрів води</p>
                 <div class="space-y-2">
-                    <button onclick="setHeat('none')" id="h-none" class="btn-opt btn-rose w-full p-4 rounded-xl bg-slate-50 text-slate-400 text-xs flex justify-between items-center active"><span class="flex items-center gap-3"><i data-lucide="rotate-ccw" class="w-4 h-4"></i> Без підігріву</span> <i data-lucide="check-circle" class="w-4 h-4"></i></button>
-                    <button onclick="setHeat('pump')" id="h-pump" class="btn-opt btn-rose w-full p-4 rounded-xl bg-slate-50 text-slate-400 text-xs flex justify-between items-center"><span class="flex items-center gap-3"><i data-lucide="zap" class="w-4 h-4"></i> Тепловий насос</span></button>
-                    <button onclick="setHeat('electric')" id="h-electric" class="btn-opt btn-rose w-full p-4 rounded-xl bg-slate-50 text-slate-400 text-xs flex justify-between items-center"><span class="flex items-center gap-3"><i data-lucide="flame" class="w-4 h-4"></i> Електропідігрів</span></button>
-                    <button onclick="setHeat('solar')" id="h-solar" class="btn-opt btn-rose w-full p-4 rounded-xl bg-slate-50 text-slate-400 text-xs flex justify-between items-center"><span class="flex items-center gap-3"><i data-lucide="sun" class="w-4 h-4"></i> Сонячний</span></button>
-                    <button onclick="setHeat('gas')" id="h-gas" class="btn-opt btn-rose w-full p-4 rounded-xl bg-slate-50 text-slate-400 text-xs flex justify-between items-center"><span class="flex items-center gap-3"><i data-lucide="fuel" class="w-4 h-4"></i> Газовий котел</span></button>
+                    <button onclick="setHeat('none')" id="h-none" class="btn-opt btn-rose w-full p-4 rounded-xl bg-slate-50 text-slate-400 text-xs flex justify-between items-center active font-black uppercase leading-none"><span class="flex items-center gap-3"><i data-lucide="rotate-ccw" class="w-4 h-4"></i> Без підігріву</span> <i data-lucide="check-circle" class="w-4 h-4"></i></button>
+                    <button onclick="setHeat('pump')" id="h-pump" class="btn-opt btn-rose w-full p-4 rounded-xl bg-slate-50 text-slate-400 text-xs flex justify-between items-center font-black uppercase leading-none"><span class="flex items-center gap-3"><i data-lucide="zap" class="w-4 h-4"></i> Тепловий насос</span></button>
+                    <button onclick="setHeat('electric')" id="h-electric" class="btn-opt btn-rose w-full p-4 rounded-xl bg-slate-50 text-slate-400 text-xs flex justify-between items-center font-black uppercase leading-none"><span class="flex items-center gap-3"><i data-lucide="flame" class="w-4 h-4"></i> Електропідігрів</span></button>
+                    <button onclick="setHeat('solar')" id="h-solar" class="btn-opt btn-rose w-full p-4 rounded-xl bg-slate-50 text-slate-400 text-xs flex justify-between items-center font-black uppercase leading-none"><span class="flex items-center gap-3"><i data-lucide="sun" class="w-4 h-4"></i> Сонячний</span></button>
+                    <button onclick="setHeat('gas')" id="h-gas" class="btn-opt btn-rose w-full p-4 rounded-xl bg-slate-50 text-slate-400 text-xs flex justify-between items-center font-black uppercase leading-none"><span class="flex items-center gap-3"><i data-lucide="fuel" class="w-4 h-4"></i> Газовий котел</span></button>
                 </div>
             </div>
         </section>
 
-        <section class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 font-black uppercase">
-            <div class="text-blue-600 text-xs flex items-center gap-2 mb-4"><i data-lucide="shield" class="w-4 h-4"></i> Накриття</div>
+        <section class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 font-black uppercase text-left text-slate-900">
+            <div class="text-blue-600 text-xs flex items-center gap-2 mb-4 font-black uppercase leading-none"><i data-lucide="shield" class="w-4 h-4"></i> Накриття</div>
             <div class="grid grid-cols-1 gap-2">
-                <button onclick="setCover('none')" id="c-none" class="btn-opt p-4 rounded-xl bg-slate-50 text-slate-400 text-[10px] active">Без накриття</button>
-                <button onclick="setCover('pavilion')" id="c-pavilion" class="btn-opt p-4 rounded-xl bg-slate-50 text-slate-400 text-[10px]">Павільйон</button>
-                <button onclick="setCover('shutter')" id="c-shutter" class="btn-opt p-4 rounded-xl bg-slate-50 text-slate-400 text-[10px]">Ролета</button>
+                <button onclick="setCover('none')" id="c-none" class="btn-opt p-4 rounded-xl bg-slate-50 text-slate-400 text-[10px] active font-black uppercase leading-none">Без накриття</button>
+                <button onclick="setCover('pavilion')" id="c-pavilion" class="btn-opt p-4 rounded-xl bg-slate-50 text-slate-400 text-[10px] font-black uppercase leading-none">Павільйон</button>
+                <button onclick="setCover('shutter')" id="c-shutter" class="btn-opt p-4 rounded-xl bg-slate-50 text-slate-400 text-[10px] font-black uppercase leading-none">Ролета</button>
             </div>
         </section>
 
-        <section class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 space-y-4 font-black uppercase">
-            <div class="text-amber-500 text-xs flex items-center gap-2 tracking-widest"><i data-lucide="star" class="w-4 h-4"></i> Атракціони</div>
-            <div onclick="toggle('counterflow')" id="box-counterflow" class="check-box btn-amber flex items-center justify-between p-4 rounded-2xl bg-slate-50 text-slate-400 cursor-pointer"><div class="flex items-center gap-3"><i data-lucide="waves" class="w-5 h-5"></i> <span>Протитік (Turbo)</span></div><div id="icon-counterflow" class="w-6 h-6 rounded-lg border-2 border-slate-200"></div></div>
-            <div onclick="toggle('hydromassage')" id="box-hydromassage" class="check-box btn-amber flex items-center justify-between p-4 rounded-2xl bg-slate-50 text-slate-400 cursor-pointer"><div class="flex items-center gap-3"><i data-lucide="activity" class="w-5 h-5"></i> <span>Гідромасаж (SPA)</span></div><div id="icon-hydromassage" class="w-6 h-6 rounded-lg border-2 border-slate-200"></div></div>
-            <div onclick="toggle('waterfall')" id="box-waterfall" class="check-box btn-amber flex items-center justify-between p-4 rounded-2xl bg-slate-50 text-slate-400 cursor-pointer"><div class="flex items-center gap-3"><i data-lucide="move-down" class="w-5 h-5"></i> <span>Водоспад</span></div><div id="icon-waterfall" class="w-6 h-6 rounded-lg border-2 border-slate-200"></div></div>
-            <div onclick="toggle('lighting')" id="box-lighting" class="check-box btn-amber flex items-center justify-between p-4 rounded-2xl bg-slate-50 text-slate-400 cursor-pointer"><div class="flex items-center gap-3"><i data-lucide="lightbulb" class="w-5 h-5"></i> <span>LED Освітлення</span></div><div id="icon-lighting" class="w-6 h-6 rounded-lg border-2 border-slate-200"></div></div>
+        <section class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 space-y-4 font-black uppercase text-left text-slate-900">
+            <div class="text-amber-500 text-xs flex items-center gap-2 tracking-widest font-black uppercase leading-none"><i data-lucide="star" class="w-4 h-4"></i> Атракціони</div>
+            <div onclick="toggle('counterflow')" id="box-counterflow" class="check-box btn-amber flex items-center justify-between p-4 rounded-2xl bg-slate-50 text-slate-400 cursor-pointer"><div class="flex items-center gap-3"><i data-lucide="waves" class="w-5 h-5"></i> <span class="font-black uppercase leading-none">Протитік (Turbo)</span></div><div id="icon-counterflow" class="w-6 h-6 rounded-lg border-2 border-slate-200"></div></div>
+            <div onclick="toggle('hydromassage')" id="box-hydromassage" class="check-box btn-amber flex items-center justify-between p-4 rounded-2xl bg-slate-50 text-slate-400 cursor-pointer"><div class="flex items-center gap-3"><i data-lucide="activity" class="w-5 h-5"></i> <span class="font-black uppercase leading-none">Гідромасаж (SPA)</span></div><div id="icon-hydromassage" class="w-6 h-6 rounded-lg border-2 border-slate-200"></div></div>
+            <div onclick="toggle('waterfall')" id="box-waterfall" class="check-box btn-amber flex items-center justify-between p-4 rounded-2xl bg-slate-50 text-slate-400 cursor-pointer"><div class="flex items-center gap-3"><i data-lucide="move-down" class="w-5 h-5"></i> <span class="font-black uppercase leading-none">Водоспад</span></div><div id="icon-waterfall" class="w-6 h-6 rounded-lg border-2 border-slate-200"></div></div>
+            <div onclick="toggle('lighting')" id="box-lighting" class="check-box btn-amber flex items-center justify-between p-4 rounded-2xl bg-slate-50 text-slate-400 cursor-pointer"><div class="flex items-center gap-3"><i data-lucide="lightbulb" class="w-5 h-5"></i> <span class="font-black uppercase leading-none text-[11px]">LED Освітлення</span></div><div id="icon-lighting" class="w-6 h-6 rounded-lg border-2 border-slate-200"></div></div>
         </section>
     </main>
 
     <main class="hidden p-4 space-y-4 pb-52 max-w-xl mx-auto" id="history-view">
         <div id="history-tabs" class="flex bg-slate-100 p-1 rounded-xl mb-4">
-            <button onclick="switchHistoryTab('local')" id="h-tab-local" class="flex-1 py-2 text-[10px] rounded-lg active-tab font-black">МІЙ АРХІВ</button>
-            <button onclick="switchHistoryTab('cloud')" id="h-tab-cloud" class="hidden flex-1 py-2 text-[10px] rounded-lg text-slate-400 font-black">ЗАМОВЛЕННЯ (ХМАРА)</button>
+            <button onclick="switchHistoryTab('local')" id="h-tab-local" class="flex-1 py-2 text-[10px] rounded-lg active-tab font-black uppercase">МІЙ АРХІВ</button>
+            <button onclick="switchHistoryTab('cloud')" id="h-tab-cloud" class="hidden flex-1 py-2 text-[10px] rounded-lg text-slate-400 font-black uppercase">ЗАМОВЛЕННЯ (ХМАРА)</button>
         </div>
         <div id="history-list" class="space-y-3"></div>
-        <button id="clear-history-btn" onclick="clearHistory()" class="w-full py-3 text-red-500 text-xs font-bold bg-white rounded-xl shadow-sm border border-red-50">Очистити історію</button>
+        <button id="clear-history-btn" onclick="clearHistory()" class="w-full py-3 text-red-500 text-xs font-black bg-white rounded-xl shadow-sm border border-red-50 uppercase">Очистити локальний архів</button>
     </main>
 
     <main class="hidden p-4 space-y-6 pb-52 max-w-xl mx-auto" id="admin-view">
         <div class="bg-blue-600 text-white p-7 rounded-3xl flex items-center justify-between shadow-xl border-b-4 border-blue-800">
             <div class="text-sm uppercase tracking-widest font-black">Прайс (Адмін)</div>
-            <button onclick="exitAdmin()" class="text-[9px] opacity-70 underline font-black">Вийти</button>
+            <button onclick="exitAdmin()" class="text-[9px] opacity-70 underline font-black uppercase">Вийти</button>
         </div>
         <div class="bg-white rounded-3xl p-6 shadow-sm border space-y-5" id="admin-content"></div>
-        <button onclick="savePricesToCloud()" class="w-full py-5 bg-emerald-600 text-white rounded-2xl font-black shadow-xl border-b-4 border-emerald-800">ОНОВИТИ ПРАЙС ДЛЯ ВСІХ</button>
+        <button onclick="savePricesToCloud()" class="w-full py-5 bg-emerald-600 text-white rounded-2xl font-black shadow-xl border-b-4 border-emerald-800 uppercase tracking-widest">ОНОВИТИ ПРАЙС ДЛЯ ВСІХ</button>
     </main>
 
-    <footer class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t p-6 rounded-t-[3rem] shadow-[0_-15px_40px_rgba(0,0,0,0.1)] z-[40]">
+    <footer id="app-footer" class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t p-6 rounded-t-[3rem] shadow-[0_-15px_40px_rgba(0,0,0,0.1)] z-[40]">
         <div class="max-w-xl mx-auto flex items-center justify-between">
-            <div class="pr-4">
+            <div class="pr-4 text-left">
                 <p class="text-[9px] text-slate-400 leading-none mb-1 uppercase font-black tracking-widest">Попередня вартість:</p>
                 <div class="text-3xl tracking-tighter text-blue-600 leading-none font-black" id="total-val">0 <span class="text-sm font-bold">грн</span></div>
-                <div class="mt-3 flex items-center gap-2 bg-slate-100 px-3 py-2 rounded-xl border border-slate-200">
-                    <i data-lucide="alert-triangle" class="w-4 h-4 text-slate-900 shrink-0"></i>
-                    <p class="text-[10px] text-slate-900 leading-tight italic font-black uppercase tracking-tight">Без урахування земельних, підготовчих та транспортних витрат</p>
-                </div>
             </div>
-            <button onclick="saveToHistory()" class="bg-blue-600 text-white px-8 py-5 rounded-2xl shadow-xl shadow-blue-200 active:scale-95 transition-all flex items-center gap-3 uppercase text-[11px] font-black border-b-4 border-blue-800 shrink-0">
+            <button onclick="saveToHistory()" class="bg-blue-600 text-white px-8 py-5 rounded-2xl shadow-xl shadow-blue-200 active:scale-95 transition-all flex items-center gap-3 uppercase text-[11px] font-black border-b-4 border-blue-800 shrink-0 tracking-widest">
                 <i data-lucide="save" class="w-5 h-5"></i> Зберегти
             </button>
         </div>
@@ -180,7 +177,7 @@
             <button onclick="closeModal()" class="absolute top-8 right-8 text-slate-300"><i data-lucide="x" class="w-6 h-6"></i></button>
             <div class="text-center mb-8">
                 <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-5 border border-blue-100 shadow-inner"><i data-lucide="key-round" class="w-8 h-8"></i></div>
-                <h2 class="text-xl font-black text-slate-900 leading-none tracking-widest">Вхід для майстра</h2>
+                <h2 class="text-xl font-black text-slate-900 leading-none tracking-widest uppercase">Вхід для майстра</h2>
             </div>
             <input type="password" id="pin-input" placeholder="PIN" class="w-full bg-slate-50 rounded-2xl py-6 text-center text-3xl tracking-[0.6em] outline-none focus:ring-2 focus:ring-blue-500 mb-6 font-black shadow-inner">
             <button onclick="checkPin()" class="w-full bg-blue-600 text-white py-5 rounded-2xl shadow-xl uppercase text-xs font-black tracking-widest border-b-4 border-blue-800">Підтвердити</button>
@@ -188,10 +185,19 @@
     </div>
 
     <script>
-        let db = null; let auth = null;
+        let db = null; let auth = null; 
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'pool-smart-master-2026';
         const uid = localStorage.getItem('pool_uid') || 'u' + Math.random().toString(36).substr(2, 7);
         localStorage.setItem('pool_uid', uid);
+
+        try {
+            if (window.__firebase_config) {
+                const firebaseConfig = JSON.parse(window.__firebase_config);
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.firestore();
+                auth = firebase.auth();
+            }
+        } catch (e) { console.warn("Firebase config error"); }
 
         const tg = window.Telegram.WebApp;
         tg.expand();
@@ -254,82 +260,53 @@
                 setTimeout(() => state.logoClicks = 0, 3000);
             };
 
-            // SAFE FIREBASE START
-            if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+            const footer = document.getElementById('app-footer');
+            document.querySelectorAll('input').forEach(input => {
+                input.addEventListener('focus', () => footer.classList.add('footer-hidden'));
+                input.addEventListener('blur', () => footer.classList.remove('footer-hidden'));
+            });
+
+            if (auth && db) {
                 try {
-                    const firebaseConfig = JSON.parse(__firebase_config);
-                    firebase.initializeApp(firebaseConfig);
-                    db = firebase.firestore();
-                    auth = firebase.auth();
-                    
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await auth.signInWithCustomToken(__initial_auth_token);
-                    } else {
-                        await auth.signInAnonymously();
-                    }
-
+                    if (window.__initial_auth_token) { await auth.signInWithCustomToken(window.__initial_auth_token); } 
+                    else { await auth.signInAnonymously(); }
                     db.collection('artifacts').doc(appId).collection('public').doc('settings').onSnapshot(doc => {
-                        if (doc.exists) {
-                            prices = doc.data().data || prices;
-                            calc();
-                            if(state.isAdmin) renderAdmin();
-                        }
+                        if (doc.exists) { prices = doc.data().data || prices; calc(); if(state.isAdmin) renderAdmin(); }
                     });
-                } catch(e) { console.error("Firebase error", e); }
+                } catch(e) {}
             }
-
-            calc();
-            renderHistory();
+            calc(); renderHistory();
         }
 
         function calc() {
             let l = parseFloat(document.getElementById('L').value)||0;
             let w = parseFloat(document.getElementById('W').value)||0;
             let d = parseFloat(document.getElementById('D').value)||0;
-            
+            if (l === 0 || w === 0 || d === 0) {
+                document.getElementById('total-val').innerHTML = '0 <span class="text-sm font-bold">грн</span>';
+                document.getElementById('area-val').innerText = '0 м²';
+                document.getElementById('vol-val').innerText = '0 м³';
+                return;
+            }
             let area = (l*w) + (2*d*(l+w));
             let vol = l*w*d;
             let tier = vol > 80 ? 'xlarge' : vol > 50 ? 'large' : vol > 20 ? 'medium' : 'small';
-
             document.getElementById('tier-display').innerText = `${tier.toUpperCase()} • ${vol.toFixed(1)} М³`;
             document.getElementById('area-val').innerText = `${area.toFixed(1)} м²`;
             document.getElementById('vol-val').innerText = `${vol.toFixed(1)} м³`;
-
             let total = 0, work = 0;
             if (state.pool === 'fiberglass') total += prices.types.fiberglass.price;
             else total += area * prices.types[state.pool].price;
             work += area * prices.bowl_installation[state.pool].price;
-
             if (state.pool === 'concrete') total += area * prices.finishes[state.finish].price;
-
-            const te = prices.tiered_equipment;
-            const ti = prices.tiered_installation;
-
-            if(state.filtration) {
-                total += te.filtration[tier];
-                work += ti.filtration_install[tier] + ti.electric_works[tier];
-            }
-            if(state.dis === 'auto') total += te.disinfection[tier];
-            else total += prices.options.disinfection_manual.price;
-
-            if(state.heat !== 'none') {
-                let key = state.heat === 'pump' ? 'heating_pump' : `heating_${state.heat}`;
-                total += te[key][tier];
-                work += ti.heating_install[tier];
-            }
-            if(state.cover !== 'none') {
-                let key = state.cover === 'pavilion' ? 'cover_pavilion' : 'cover_shutter';
-                total += te[key][tier];
-                work += ti.cover_install[tier];
-            }
+            const te = prices.tiered_equipment; const ti = prices.tiered_installation;
+            if(state.filtration) { total += te.filtration[tier]; work += ti.filtration_install[tier] + ti.electric_works[tier]; }
+            if(state.dis === 'auto') total += te.disinfection[tier]; else total += prices.options.disinfection_manual.price;
+            if(state.heat !== 'none') { let key = state.heat === 'pump' ? 'heating_pump' : `heating_${state.heat}`; total += te[key][tier]; work += ti.heating_install[tier]; }
+            if(state.cover !== 'none') { let key = state.cover === 'pavilion' ? 'cover_pavilion' : 'cover_shutter'; total += te[key][tier]; work += ti.cover_install[tier]; }
             if(state.steps) total += prices.options.steps.price;
             if(state.lighting) total += prices.options.lighting.price;
-            ['counterflow', 'hydromassage', 'waterfall'].forEach(k => {
-                if(state[k]) {
-                    total += prices.options[k].price;
-                    work += ti.attraction_install[tier];
-                }
-            });
+            ['counterflow', 'hydromassage', 'waterfall'].forEach(k => { if(state[k]) { total += prices.options[k].price; work += ti.attraction_install[tier]; } });
             document.getElementById('total-val').innerHTML = Math.round(total + work).toLocaleString() + ' <span class="text-sm font-bold">грн</span>';
         }
 
@@ -340,15 +317,13 @@
         function setHeat(v) { 
             state.heat = v; 
             document.querySelectorAll('[id^="h-"]').forEach(el => { el.classList.remove('active'); el.innerHTML = el.innerHTML.split(' <i')[0]; });
-            const active = document.getElementById('h-'+v);
-            active.classList.add('active');
+            const active = document.getElementById('h-'+v); active.classList.add('active');
             if(v !== 'none') active.innerHTML += ' <i data-lucide="check-circle" class="w-4 h-4"></i>';
             lucide.createIcons(); calc(); 
         }
         function toggle(v) {
             state[v] = !state[v];
-            const box = document.getElementById('box-'+v);
-            const icon = document.getElementById('icon-'+v);
+            const box = document.getElementById('box-'+v); const icon = document.getElementById('icon-'+v);
             if(state[v]) {
                 box.classList.add('active');
                 if(v==='steps') { icon.innerHTML = '✓'; icon.className = "w-6 h-6 rounded-lg bg-blue-600 flex items-center justify-center text-white"; }
@@ -361,21 +336,17 @@
             }
             calc();
         }
-        function ui(prefix, val) {
-            document.querySelectorAll(`[id^="${prefix}-"]`).forEach(el => el.classList.remove('active'));
-            document.getElementById(`${prefix}-${val}`).classList.add('active');
-        }
+        function ui(prefix, val) { document.querySelectorAll(`[id^="${prefix}-"]`).forEach(el => el.classList.remove('active')); document.getElementById(`${prefix}-${val}`).classList.add('active'); }
 
         function switchTab(t) {
             document.getElementById('main-view').style.display = t === 'calc' ? 'block' : 'none';
             document.getElementById('history-view').style.display = t === 'history' ? 'block' : 'none';
             document.getElementById('admin-view').style.display = t === 'settings' ? 'block' : 'none';
-            ['calc', 'history', 'settings'].forEach(tab => {
-                const btn = document.getElementById('tab-'+tab);
-                btn.className = `px-4 py-2 text-[9px] rounded-lg transition-all font-black uppercase ${t === tab ? 'active-tab' : 'text-slate-400'}`;
+            ['calc', 'history', 'settings'].forEach(tabId => {
+                const btn = document.getElementById('tab-' + tabId);
+                if (btn) { if (t === tabId) btn.classList.add('active-tab'); else btn.classList.remove('active-tab'); }
             });
-            if(t === 'settings' && state.isAdmin) renderAdmin();
-            if(t === 'history') renderHistory();
+            if(t === 'settings' && state.isAdmin) renderAdmin(); if(t === 'history') renderHistory();
         }
 
         async function saveToHistory() {
@@ -385,111 +356,95 @@
                 uid: uid, date: new Date().toLocaleString(), 
                 sum: sum, details: `${l}x${w}x${d}м, ${state.pool}`, ts: Date.now()
             };
-            
             let local = JSON.parse(localStorage.getItem('pool_history') || '[]');
-            local.unshift(data);
-            localStorage.setItem('pool_history', JSON.stringify(local));
-            
-            if (db) {
-                try {
-                    await db.collection('artifacts').doc(appId).collection('public').doc('data').collection('orders').add(data);
-                    alert('Збережено в хмару!');
-                } catch(e) {}
-            }
-            alert('Збережено в архів!');
+            local.unshift(data); localStorage.setItem('pool_history', JSON.stringify(local));
+            if (db) { try { await db.collection('artifacts').doc(appId).collection('public').doc('data').collection('orders').add(data); } catch(e) {} }
             renderHistory();
         }
 
         function switchHistoryTab(t) {
             state.historyTab = t;
-            document.getElementById('h-tab-local').className = `flex-1 py-2 text-[10px] rounded-lg font-black ${t==='local'?'active-tab':'text-slate-400'}`;
-            document.getElementById('h-tab-cloud').className = `flex-1 py-2 text-[10px] rounded-lg font-black ${t==='cloud'?'active-tab':'text-slate-400'}`;
+            document.getElementById('h-tab-local').className = `flex-1 py-2 text-[10px] rounded-lg font-black uppercase ${t==='local'?'active-tab':'text-slate-400'}`;
+            document.getElementById('h-tab-cloud').className = `flex-1 py-2 text-[10px] rounded-lg font-black uppercase ${t==='cloud'?'active-tab':'text-slate-400'}`;
             document.getElementById('clear-history-btn').style.display = t==='local' ? 'block' : 'none';
             renderHistory();
         }
 
+        async function deleteLocalItem(idx) {
+            let local = JSON.parse(localStorage.getItem('pool_history') || '[]');
+            local.splice(idx, 1);
+            localStorage.setItem('pool_history', JSON.stringify(local));
+            renderHistory();
+        }
+
+        async function deleteCloudItem(docId) {
+            if (!db) return;
+            try {
+                await db.collection('artifacts').doc(appId).collection('public').doc('data').collection('orders').doc(docId).delete();
+            } catch(e) { console.error("Delete error", e); }
+        }
+
         function renderHistory() {
             const list = document.getElementById('history-list');
-            list.innerHTML = '<div class="text-center text-slate-300 py-10">Завантаження...</div>';
+            list.innerHTML = '<div class="text-center text-slate-300 py-10 font-black uppercase text-[10px]">Завантаження...</div>';
             
             if(state.historyTab === 'local') {
                 const local = JSON.parse(localStorage.getItem('pool_history') || '[]');
-                if(!local.length) { list.innerHTML = '<div class="text-center text-slate-300 py-10">Архів порожній</div>'; return; }
-                list.innerHTML = local.map(item => `
-                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-left">
-                        <div class="flex justify-between font-bold text-xs"><span class="text-blue-600">${item.sum}</span><span class="text-slate-400">${item.date}</span></div>
-                        <div class="text-[10px] text-slate-500 mt-1">${item.details}</div>
+                if(!local.length) { list.innerHTML = '<div class="text-center text-slate-300 py-10 font-black uppercase text-[10px]">Архів порожній</div>'; return; }
+                list.innerHTML = local.map((item, idx) => `
+                    <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm text-left flex justify-between items-center">
+                        <div>
+                            <div class="flex gap-2 font-black text-xs uppercase"><span class="text-blue-600">${item.sum}</span><span class="text-slate-400 text-[8px]">${item.date}</span></div>
+                            <div class="text-[9px] text-slate-500 mt-1 uppercase font-black">${item.details}</div>
+                        </div>
+                        <button onclick="deleteLocalItem(${idx})" class="text-slate-300 hover:text-red-500"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                     </div>
                 `).join('');
             } else if (db) {
                 db.collection('artifacts').doc(appId).collection('public').doc('data').collection('orders').onSnapshot(snap => {
-                    const orders = [];
-                    snap.forEach(doc => orders.push(doc.data()));
+                    const orders = []; snap.forEach(doc => orders.push({ ...doc.data(), id: doc.id }));
                     orders.sort((a,b) => b.ts - a.ts);
-                    if(!orders.length) { list.innerHTML = '<div class="text-center text-slate-300 py-10">Хмара порожня</div>'; return; }
+                    if(!orders.length) { list.innerHTML = '<div class="text-center text-slate-300 py-10 font-black uppercase text-[10px]">Хмара порожня</div>'; return; }
                     list.innerHTML = orders.map(item => `
-                        <div class="bg-white p-4 rounded-xl border border-blue-100 shadow-sm text-left">
-                            <div class="flex justify-between font-bold text-xs"><span class="text-blue-600">${item.sum}</span><span class="text-slate-400">ID: ${item.uid.slice(-4)} | ${item.date}</span></div>
-                            <div class="text-[10px] text-slate-500 mt-1">${item.details}</div>
+                        <div class="bg-white p-4 rounded-xl border border-blue-100 shadow-sm text-left flex justify-between items-center">
+                            <div>
+                                <div class="flex gap-2 font-black text-xs uppercase"><span class="text-blue-600">${item.sum}</span><span class="text-slate-400 text-[8px]">ID: ${item.uid.slice(-4)} | ${item.date}</span></div>
+                                <div class="text-[9px] text-slate-500 mt-1 uppercase font-black">${item.details}</div>
+                            </div>
+                            ${state.isAdmin ? `<button onclick="deleteCloudItem('${item.id}')" class="text-slate-300 hover:text-red-500"><i data-lucide="trash-2" class="w-4 h-4"></i></button>` : ''}
                         </div>
                     `).join('');
-                }, err => { list.innerHTML = '<div class="text-center py-10">Помилка доступу до хмари</div>'; });
-            } else { list.innerHTML = '<div class="text-center py-10">Хмарна база недоступна</div>'; }
+                    lucide.createIcons();
+                }, err => { list.innerHTML = '<div class="text-center py-10 text-xs font-black uppercase">Помилка доступу</div>'; });
+            } else { list.innerHTML = '<div class="text-center py-10 text-xs font-black uppercase">Хмара недоступна</div>'; }
+            lucide.createIcons();
         }
 
         function clearHistory() { localStorage.removeItem('pool_history'); renderHistory(); }
-
-        function checkPin() {
-            if(document.getElementById('pin-input').value === ADMIN_PIN) {
-                state.isAdmin = true;
-                document.getElementById('pin-modal').classList.add('hidden');
-                document.getElementById('tab-settings').classList.remove('hidden');
-                document.getElementById('h-tab-cloud').classList.remove('hidden');
-                switchTab('settings');
-            } else { alert("Невірний код"); }
-            document.getElementById('pin-input').value = '';
-        }
-
-        async function savePricesToCloud() {
-            if (!db) { alert("База недоступна"); return; }
-            try {
-                await db.collection('artifacts').doc(appId).collection('public').doc('settings').set({ data: prices });
-                alert('Ціни оновлено!');
-            } catch(e) { alert('Помилка оновлення'); }
-        }
+        function checkPin() { if(document.getElementById('pin-input').value === ADMIN_PIN) { state.isAdmin = true; document.getElementById('pin-modal').classList.add('hidden'); document.getElementById('tab-settings').classList.remove('hidden'); document.getElementById('h-tab-cloud').classList.remove('hidden'); switchTab('settings'); } else { alert("Невірний код"); } document.getElementById('pin-input').value = ''; }
+        async function savePricesToCloud() { if (!db) { alert("База недоступна"); return; } try { await db.collection('artifacts').doc(appId).collection('public').doc('settings').set({ data: prices }); alert('Ціни оновлено!'); } catch(e) { alert('Помилка'); } }
         
         function renderAdmin() {
-            const container = document.getElementById('admin-content');
-            container.innerHTML = '';
+            const container = document.getElementById('admin-content'); container.innerHTML = '';
             const createGroup = (title, obj, isTiered = false) => {
-                let html = `<div class="admin-group text-left"><div class="admin-group-title">${title}</div>`;
+                let html = `<div class="admin-group text-left"><div class="admin-group-title uppercase">${title}</div>`;
                 for(let k in obj) {
                     if (isTiered) {
-                         html += `<div class="admin-sub-title">${obj[k].name || k}</div>`;
+                         html += `<div class="admin-sub-title uppercase">${obj[k].name || k}</div>`;
                          ['small', 'medium', 'large', 'xlarge'].forEach(sz => {
                              if(obj[k][sz]) html += `<div class="admin-row"><div class="admin-label">${sz}</div><input type="number" class="admin-inp" value="${obj[k][sz]}" onchange="prices.${title=='ОБЛАДНАННЯ'?'tiered_equipment':'tiered_installation'}.${k}.${sz}=parseFloat(this.value); calc()"></div>`;
                          });
-                    } else {
-                        html += `<div class="admin-row"><div class="admin-label">${obj[k].name}</div><input type="number" class="admin-inp" value="${obj[k].price}" onchange="prices.${title=='МОНТАЖ'?'bowl_installation':title=='ОЗДОБЛЕННЯ'?'finishes':title=='ОПЦІЇ'?'options':'types'}.${k}.price=parseFloat(this.value); calc()"></div>`;
-                    }
+                    } else { html += `<div class="admin-row"><div class="admin-label uppercase">${obj[k].name}</div><input type="number" class="admin-inp" value="${obj[k].price}" onchange="prices.${title=='МОНТАЖ'?'bowl_installation':title=='ОЗДОБЛЕННЯ'?'finishes':title=='ОПЦІЇ'?'options':'types'}.${k}.price=parseFloat(this.value); calc()"></div>`; }
                 }
-                html += '</div>';
-                container.innerHTML += html;
+                html += '</div>'; container.innerHTML += html;
             };
-            createGroup('ЧАШІ', prices.types);
-            createGroup('МОНТАЖ', prices.bowl_installation);
-            createGroup('ОЗДОБЛЕННЯ', prices.finishes);
-            createGroup('ОБЛАДНАННЯ', prices.tiered_equipment, true);
-            createGroup('МОНТАЖ ОБЛ.', prices.tiered_installation, true);
-            createGroup('ОПЦІЇ', prices.options);
+            createGroup('ЧАШІ', prices.types); createGroup('МОНТАЖ', prices.bowl_installation); createGroup('ОЗДОБЛЕННЯ', prices.finishes); createGroup('ОБЛАДНАННЯ', prices.tiered_equipment, true); createGroup('МОНТАЖ ОБЛ.', prices.tiered_installation, true); createGroup('ОПЦІЇ', prices.options);
         }
 
         function exitAdmin() { state.isAdmin = false; document.getElementById('tab-settings').classList.add('hidden'); document.getElementById('h-tab-cloud').classList.add('hidden'); switchTab('calc'); }
         function closeModal() { document.getElementById('pin-modal').classList.add('hidden'); }
-
         window.onload = init;
     </script>
 </body>
 </html>
-
 
